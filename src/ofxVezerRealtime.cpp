@@ -1,23 +1,23 @@
 //
-//  ofxVezerRemoteControl.cpp
+//  ofxVezerRealtime.cpp
 //  BasicSketch
 //
 //  Created by Oriol Ferrer Mesià on 20/02/2018.
 //
 //
 
-#include "ofxVezerRemoteControl.h"
+#include "ofxVezerRealtime.h"
 
-ofxVezerRemoteControl::ofxVezerRemoteControl(){
+ofxVezerRealtime::ofxVezerRealtime(){
 
 }
 
-void ofxVezerRemoteControl::setup(string vezerIp, int vezerOscInPort, int vezierFeedbackOutPort){
+void ofxVezerRealtime::setup(string vezerIp, int vezerOscInPort, int vezierFeedbackOutPort){
 	sender.setup(vezerIp, vezerOscInPort);
 	rx.setup(vezierFeedbackOutPort);
 }
 
-void ofxVezerRemoteControl::update(){
+void ofxVezerRealtime::update(){
 
 	while(rx.hasWaitingMessages()){
 		ofxOscMessage m;
@@ -36,27 +36,27 @@ void ofxVezerRemoteControl::update(){
 }
 
 //control playhead
-void ofxVezerRemoteControl::setPlayheadNormalized(float timelinePct, const string & composition){
+void ofxVezerRealtime::setPlayheadNormalized(float timelinePct, const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/playhead");
 	m.addFloatArg(timelinePct);
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::setPlayheadFrame(int frameNum, const string & composition){
+void ofxVezerRealtime::setPlayheadFrame(int frameNum, const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/jumptoframe");
 	m.addIntArg(frameNum);
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::advancePlayheadOneFrame(const string & composition){
+void ofxVezerRealtime::advancePlayheadOneFrame(const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/nextframe");
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::recedePlayheadOneFrame(const string & composition){
+void ofxVezerRealtime::recedePlayheadOneFrame(const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/prevframe");
 	sender.sendMessage(m);
@@ -64,40 +64,40 @@ void ofxVezerRemoteControl::recedePlayheadOneFrame(const string & composition){
 
 
 //compositions
-void ofxVezerRemoteControl::setCompositionEnabled(bool enabled, const string & composition){
+void ofxVezerRealtime::setCompositionEnabled(bool enabled, const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/enable");
 	m.addIntArg(enabled ? 1 : 0);
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::playPauseComposition(bool play, const string & composition){
+void ofxVezerRealtime::playPauseComposition(bool play, const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/play");
 	m.addIntArg(play ? 1 : 0);
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::rewindComposition(const string & composition){
+void ofxVezerRealtime::rewindComposition(const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/rewind");
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::setLoopComposition(bool loop, const string & composition){
+void ofxVezerRealtime::setLoopComposition(bool loop, const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/loop");
 	sender.sendMessage(m);
 }
 
 //global
-void ofxVezerRemoteControl::playAllCompositions(){
+void ofxVezerRealtime::playAllCompositions(){
 	ofxOscMessage m;
 	m.setAddress("/vezer/playall");
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::rewindAllCompositions(){
+void ofxVezerRealtime::rewindAllCompositions(){
 	ofxOscMessage m;
 	m.setAddress("/vezer/rewindall");
 	sender.sendMessage(m);
@@ -105,7 +105,7 @@ void ofxVezerRemoteControl::rewindAllCompositions(){
 
 
 //cues
-void ofxVezerRemoteControl::jumpToCueAtIndex(int queueIndex, bool startPlaying, const string & composition){
+void ofxVezerRealtime::jumpToCueAtIndex(int queueIndex, bool startPlaying, const string & composition){
 	ofxOscMessage m;
 	if(startPlaying == false){
 		m.setAddress("/vezer/" + composition + "/jumptocueatindex");
@@ -116,7 +116,7 @@ void ofxVezerRemoteControl::jumpToCueAtIndex(int queueIndex, bool startPlaying, 
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::jumpToCueWithName(const string & cueName, bool startPlaying, const string & composition){
+void ofxVezerRealtime::jumpToCueWithName(const string & cueName, bool startPlaying, const string & composition){
 	ofxOscMessage m;
 	if(startPlaying == false){
 		m.setAddress("/vezer/" + composition + "/jumptocuewithname");
@@ -127,7 +127,7 @@ void ofxVezerRemoteControl::jumpToCueWithName(const string & cueName, bool start
 	sender.sendMessage(m);
 }
 
-void ofxVezerRemoteControl::resetCueStates(const string & composition){
+void ofxVezerRealtime::resetCueStates(const string & composition){
 	ofxOscMessage m;
 	m.setAddress("/vezer/" + composition + "/resetcuestates");
 	sender.sendMessage(m);

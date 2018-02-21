@@ -1,5 +1,5 @@
 //
-//  ofxVezerRemoteControl.h
+//  ofxVezerRealtime.h
 //  BasicSketch
 //
 //  Created by Oriol Ferrer Mesià on 20/02/2018.
@@ -11,11 +11,11 @@
 #include "ofxOscSender.h"
 #include "ofxOscReceiver.h"
 
-class ofxVezerRemoteControl{
+class ofxVezerRealtime{
 
 public:
 	
-	ofxVezerRemoteControl();
+	ofxVezerRealtime();
 	void setup(string vezerIp, int vezerOSCinPort, int vezierFeedbackOutPort);
 
 	void update();

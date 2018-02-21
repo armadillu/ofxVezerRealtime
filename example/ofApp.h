@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "CustomApp.h"
-#include "ofxVezerRemoteControl.h"
+#include "ofxVezerRealtime.h"
 #include "ofxVezerOscFlags.h"
 
 
@@ -25,7 +25,7 @@ public:
 
 	float p1;
 
-	ofxVezerRemoteControl vezer;
+	ofxVezerRealtime vezer;
 	ofxVezerOscFlags vezerFlags;
 
 	void onVezerPlayheadChanged(float & pct);
