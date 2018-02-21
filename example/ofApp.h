@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include "CustomApp.h"
 #include "ofxVezerRealtime.h"
 #include "ofxVezerOscFlags.h"
 
